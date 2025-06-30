@@ -4,50 +4,33 @@
 
 import asyncio
 import os
-from llm_router import LLMRouter
+from llm_router import LLMRouter, RouterConfig
+from llm_router.providers import OpenAIProvider, AnthropicProvider
 
 
 async def main():
     """Demonstrate basic usage of llm-router."""
     
     # Create router instance
-    router = LLMRouter(
-        strategy="priority",
-        cache_ttl=3600,
-        retry_attempts=3
+    config = RouterConfig(
+        providers=[
+            OpenAIProvider(api_key="your-openai-key"),
+            AnthropicProvider(api_key="your-anthropic-key")
+        ],
+        strategy="priority"
     )
-    
-    # Add providers (you'll need to set these environment variables)
-    openai_key = os.getenv("OPENAI_API_KEY")
-    anthropic_key = os.getenv("ANTHROPIC_API_KEY")
-    
-    if openai_key:
-        router.add_provider(
-            name="openai",
-            provider_type="openai",
-            api_key=openai_key,
-            priority=1
-        )
-    
-    if anthropic_key:
-        router.add_provider(
-            name="anthropic",
-            provider_type="anthropic",
-            api_key=anthropic_key,
-            priority=2
-        )
+    router = LLMRouter(config)
     
     # Simple completion
     print("=== Basic Completion ===")
     try:
-        response = await router.complete(
-            "Explain quantum computing in simple terms",
-            model="gpt-3.5-turbo"
+        response = await router.chat_completion(
+            messages=[{"role": "user", "content": "Tell me a joke."}],
+            model="gpt-4"
         )
-        print(f"Response: {response.content}")
-        print(f"Provider: {response.provider}")
-        print(f"Cost: ${response.cost_estimate:.6f}")
-        print(f"Latency: {response.latency_ms}ms")
+        print("Response:", response.content)
+        print("Provider:", response.provider)
+        print("Cost:", response.cost)
     except Exception as e:
         print(f"Error: {e}")
     

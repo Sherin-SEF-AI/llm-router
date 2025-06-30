@@ -5,57 +5,30 @@
 import asyncio
 import os
 from datetime import datetime, timedelta
-from llm_router import LLMRouter
+from llm_router import LLMRouter, RouterConfig
+from llm_router.providers import OpenAIProvider
+from llm_router.utils.cache import RedisCache
+from llm_router.utils.retry import RetryConfig
+from llm_router.utils.monitor import HealthMonitorConfig
 
 
 async def main():
     """Demonstrate advanced configuration of llm-router."""
     
     # Create router with advanced configuration
-    router = LLMRouter(
-        strategy="cost_optimized",  # Use cost-optimized routing
-        cache_ttl=7200,  # 2 hour cache
-        cache_max_size=2000,  # Larger cache
-        retry_attempts=5,  # More retries
-        enable_health_monitoring=True,
-        health_check_interval=60,  # Check health every minute
-        enable_cost_tracking=True,
-        enable_metrics=True
+    config = RouterConfig(
+        providers=[OpenAIProvider(api_key="your-openai-key")],
+        strategy="cost_optimized",
+        cache=RedisCache(host="localhost", port=6379, db=0),
+        retry=RetryConfig(max_attempts=3, backoff_factor=2),
+        monitor=HealthMonitorConfig(interval_seconds=30)
     )
-    
-    # Add multiple providers with different configurations
-    openai_key = os.getenv("OPENAI_API_KEY")
-    anthropic_key = os.getenv("ANTHROPIC_API_KEY")
-    
-    if openai_key:
-        router.add_provider(
-            name="openai-primary",
-            provider_type="openai",
-            api_key=openai_key,
-            priority=1,
-            timeout=30,
-            max_retries=3
-        )
-        
-        # Add a backup OpenAI provider with different configuration
-        router.add_provider(
-            name="openai-backup",
-            provider_type="openai",
-            api_key=openai_key,
-            priority=3,
-            timeout=60,
-            max_retries=5
-        )
-    
-    if anthropic_key:
-        router.add_provider(
-            name="anthropic-primary",
-            provider_type="anthropic",
-            api_key=anthropic_key,
-            priority=2,
-            timeout=45,
-            max_retries=3
-        )
+    router = LLMRouter(config)
+    response = await router.chat_completion(
+        messages=[{"role": "user", "content": "What's the weather today?"}],
+        model="gpt-3.5-turbo"
+    )
+    print(response.content)
     
     # Test different routing strategies
     print("=== Testing Different Strategies ===")

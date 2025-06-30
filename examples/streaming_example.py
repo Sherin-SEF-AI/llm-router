@@ -5,18 +5,19 @@
 import asyncio
 import os
 import time
-from llm_router import LLMRouter
+from llm_router import LLMRouter, RouterConfig
+from llm_router.providers import OpenAIProvider
 
 
 async def streaming_demo():
     """Demonstrate streaming capabilities of llm-router."""
     
     # Create router
-    router = LLMRouter(
-        strategy="priority",
-        cache_ttl=3600,
-        retry_attempts=3
+    config = RouterConfig(
+        providers=[OpenAIProvider(api_key="your-openai-key")],
+        strategy="priority"
     )
+    router = LLMRouter(config)
     
     # Add providers
     openai_key = os.getenv("OPENAI_API_KEY")
