@@ -3,8 +3,8 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "llm-router-ai"
-version = "0.1.1"
+name = "ai-llm-router"
+version = "0.1.0"
 description = "Intelligent routing of LLM API calls across multiple providers with automatic fallbacks, cost optimization, and monitoring"
 readme = "docs/README.md"
 license = {text = "MIT"}
@@ -64,7 +64,7 @@ Changelog = "https://github.com/Sherin-SEF-AI/llm-router/blob/main/CHANGELOG.md"
 LinkedIn = "https://www.linkedin.com/in/sherin-roy-deepmost/"
 
 [project.scripts]
-llm-router = "llm_router.cli:main"
+ai-llm-router = "llm_router.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["."]

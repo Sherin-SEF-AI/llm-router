@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-Setup script for llm-router-ai package.
+Setup script for ai-llm-router package.
 """
 
 from setuptools import setup, find_packages
 
 setup(
-    name="llm-router-ai",
-    version="0.1.1",
+    name="ai-llm-router",
+    version="0.1.0",
     description="Intelligent LLM API routing with automatic fallbacks, cost optimization, and monitoring",
     long_description=open("docs/README.md").read() if __import__('os').path.exists("docs/README.md") else "",
     long_description_content_type="text/markdown",

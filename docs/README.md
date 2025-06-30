@@ -1,4 +1,4 @@
-# LLM Router AI
+# AI LLM Router
 
 Intelligent routing of LLM API calls across multiple providers with automatic fallbacks, cost optimization, caching, health monitoring, and retry logic.
 
@@ -19,7 +19,7 @@ Intelligent routing of LLM API calls across multiple providers with automatic fa
 ## Installation
 
 ```bash
-pip install llm-router-ai
+pip install ai-llm-router
 ```
 
 ## Quick Start
@@ -45,6 +45,14 @@ response = await router.chat_completion(
     messages=[{"role": "user", "content": "Hello, world!"}],
     model="gpt-4"
 )
+```
+
+## CLI Usage
+
+After installation, you can use the CLI:
+
+```bash
+ai-llm-router chat --provider openai --model gpt-4 --message "Hello, world!"
 ```
 
 ## Documentation
