@@ -3,18 +3,18 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "llm-router"
+name = "llm-router-ai"
 version = "0.1.0"
-description = "Intelligent LLM API routing with automatic fallbacks, cost optimization, and monitoring"
+description = "Intelligent routing of LLM API calls across multiple providers with automatic fallbacks, cost optimization, and monitoring"
 readme = "docs/README.md"
 license = {text = "MIT"}
 authors = [
-    {name = "LLM Router Team", email = "team@llm-router.dev"}
+    {name = "João Silva", email = "joao.silva@example.com"}
 ]
 maintainers = [
-    {name = "LLM Router Team", email = "team@llm-router.dev"}
+    {name = "João Silva", email = "joao.silva@example.com"}
 ]
-keywords = ["llm", "ai", "api", "routing", "openai", "anthropic", "fallback", "optimization"]
+keywords = ["llm", "ai", "router", "openai", "anthropic", "api", "fallback", "cost-optimization"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
@@ -31,34 +31,35 @@ classifiers = [
 ]
 requires-python = ">=3.8"
 dependencies = [
-    "httpx>=0.25.0",
-    "pydantic>=2.0.0",
-    "pydantic-settings>=2.0.0",
-    "tenacity>=8.0.0",
-    "cachetools>=5.0.0",
-    "structlog>=23.0.0",
-    "python-dotenv>=1.0.0",
+    "aiohttp>=3.8.0",
     "openai>=1.0.0",
-    "anthropic>=0.5.0",
+    "anthropic>=0.7.0",
+    "pydantic>=2.0.0",
+    "redis>=4.0.0",
+    "prometheus-client>=0.16.0",
+    "click>=8.0.0",
+    "rich>=13.0.0",
+    "tenacity>=8.0.0",
 ]
 
 [project.optional-dependencies]
 dev = [
     "pytest>=7.0.0",
     "pytest-asyncio>=0.21.0",
-    "pytest-mock>=3.10.0",
-    "pytest-cov>=4.1.0",
+    "pytest-cov>=4.0.0",
     "black>=23.0.0",
     "isort>=5.12.0",
-    "mypy>=1.5.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0",
     "pre-commit>=3.0.0",
 ]
 
 [project.urls]
-Homepage = "https://github.com/llm-router/llm-router"
-Documentation = "https://llm-router.readthedocs.io"
-Repository = "https://github.com/llm-router/llm-router.git"
-"Bug Tracker" = "https://github.com/llm-router/llm-router/issues"
+Homepage = "https://github.com/joai22/llm-router"
+Documentation = "https://github.com/joai22/llm-router#readme"
+Repository = "https://github.com/joai22/llm-router"
+Issues = "https://github.com/joai22/llm-router/issues"
+Changelog = "https://github.com/joai22/llm-router/blob/main/CHANGELOG.md"
 
 [project.scripts]
 llm-router = "llm_router.cli:main"
@@ -67,67 +68,24 @@ llm-router = "llm_router.cli:main"
 where = ["."]
 include = ["llm_router*"]
 
-[tool.setuptools.package-data]
-llm_router = ["py.typed"]
-
 [tool.black]
 line-length = 88
 target-version = ['py38']
-include = '\.pyi?$'
-extend-exclude = '''
-/(
-  # directories
-  \.eggs
-  | \.git
-  | \.hg
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | build
-  | dist
-)/
-'''
 
 [tool.isort]
 profile = "black"
 multi_line_output = 3
-line_length = 88
-known_first_party = ["llm_router"]
 
 [tool.mypy]
 python_version = "3.8"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
-disallow_incomplete_defs = true
-check_untyped_defs = true
-disallow_untyped_decorators = true
-no_implicit_optional = true
-warn_redundant_casts = true
-warn_unused_ignores = true
-warn_no_return = true
-warn_unreachable = true
-strict_equality = true
-
-[[tool.mypy.overrides]]
-module = [
-    "cachetools.*",
-    "tenacity.*",
-    "structlog.*",
-]
-ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
-addopts = [
-    "--strict-markers",
-    "--strict-config",
-    "--cov=llm_router",
-    "--cov-report=term-missing",
-    "--cov-report=html",
-    "--cov-report=xml",
-]
+addopts = "-v --cov=llm_router --cov-report=term-missing"
 asyncio_mode = "auto" 

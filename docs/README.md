@@ -1,32 +1,56 @@
-# llm-router
+# LLM Router AI
 
-Intelligent LLM API routing with automatic fallbacks, cost optimization, and monitoring.
+Intelligent routing of LLM API calls across multiple providers with automatic fallbacks, cost optimization, caching, health monitoring, and retry logic.
 
 ## Features
-- Multi-provider support (OpenAI, Anthropic, easily extensible)
-- Intelligent routing (priority, cost, performance-based)
-- Automatic fallbacks and retries
-- Cost tracking and optimization
-- Response caching (in-memory, TTL, optional Redis)
-- Health monitoring and metrics
-- Async and streaming support
-- Easy configuration (env or code)
+
+- **Multi-Provider Support**: OpenAI, Anthropic, and extensible for other providers
+- **Intelligent Routing**: Priority-based, cost-optimized, and round-robin strategies
+- **Automatic Fallbacks**: Seamless failover between providers
+- **Cost Optimization**: Track and optimize API usage costs
+- **Caching**: Redis-based response caching for improved performance
+- **Health Monitoring**: Real-time provider health checks
+- **Retry Logic**: Configurable retry mechanisms with exponential backoff
+- **Async Support**: Full async/await support for high-performance applications
+- **Streaming**: Support for streaming responses
+- **CLI Interface**: Command-line tool for easy integration
+- **Metrics**: Prometheus-compatible metrics collection
 
 ## Installation
+
 ```bash
-pip install llm-router
+pip install llm-router-ai
 ```
 
-## Quickstart
+## Quick Start
+
 ```python
-from llm_router import LLMRouter
+from llm_router import LLMRouter, RouterConfig
+from llm_router.providers import OpenAIProvider, AnthropicProvider
 
-router = LLMRouter()
-router.add_provider("openai", api_key="sk-...", priority=1)
-router.add_provider("anthropic", api_key="sk-ant-...", priority=2)
+# Configure providers
+config = RouterConfig(
+    providers=[
+        OpenAIProvider(api_key="your-openai-key"),
+        AnthropicProvider(api_key="your-anthropic-key")
+    ],
+    strategy="priority"
+)
 
-response = await router.complete("Explain quantum computing")
-print(response.content, response.cost_estimate, response.provider)
+# Create router
+router = LLMRouter(config)
+
+# Make a request
+response = await router.chat_completion(
+    messages=[{"role": "user", "content": "Hello, world!"}],
+    model="gpt-4"
+)
 ```
 
-See full documentation at [https://llm-router.readthedocs.io](https://llm-router.readthedocs.io) 
+## Documentation
+
+For detailed documentation, examples, and API reference, visit our [GitHub repository](https://github.com/joai22/llm-router).
+
+## License
+
+MIT License - see [LICENSE](LICENSE) file for details. 
