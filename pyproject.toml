@@ -4,15 +4,15 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "llm-router-ai"
-version = "0.1.0"
+version = "0.1.1"
 description = "Intelligent routing of LLM API calls across multiple providers with automatic fallbacks, cost optimization, and monitoring"
 readme = "docs/README.md"
 license = {text = "MIT"}
 authors = [
-    {name = "João Silva", email = "joao.silva@example.com"}
+    {name = "Sherin Joseph", email = "sherin.joseph2217@gmail.com"}
 ]
 maintainers = [
-    {name = "João Silva", email = "joao.silva@example.com"}
+    {name = "Sherin Joseph", email = "sherin.joseph2217@gmail.com"}
 ]
 keywords = ["llm", "ai", "router", "openai", "anthropic", "api", "fallback", "cost-optimization"]
 classifiers = [
@@ -55,11 +55,13 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/joai22/llm-router"
-Documentation = "https://github.com/joai22/llm-router#readme"
-Repository = "https://github.com/joai22/llm-router"
-Issues = "https://github.com/joai22/llm-router/issues"
-Changelog = "https://github.com/joai22/llm-router/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/Sherin-SEF-AI/llm-router"
+Documentation = "https://github.com/Sherin-SEF-AI/llm-router#readme"
+Repository = "https://github.com/Sherin-SEF-AI/llm-router"
+Issues = "https://github.com/Sherin-SEF-AI/llm-router/issues"
+Changelog = "https://github.com/Sherin-SEF-AI/llm-router/blob/main/CHANGELOG.md"
+"Bug Tracker" = "https://github.com/Sherin-SEF-AI/llm-router/issues"
+LinkedIn = "https://www.linkedin.com/in/sherin-roy-deepmost/"
 
 [project.scripts]
 llm-router = "llm_router.cli:main"

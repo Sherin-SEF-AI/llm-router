@@ -49,7 +49,11 @@ response = await router.chat_completion(
 
 ## Documentation
 
-For detailed documentation, examples, and API reference, visit our [GitHub repository](https://github.com/joai22/llm-router).
+For detailed documentation, examples, and API reference, visit our [GitHub repository](https://github.com/Sherin-SEF-AI/llm-router).
+
+## Author
+
+**Sherin Joseph** - [LinkedIn](https://www.linkedin.com/in/sherin-roy-deepmost/)
 
 ## License
 
